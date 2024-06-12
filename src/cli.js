@@ -1,6 +1,7 @@
 import { program } from "commander";
 import { readFileSync } from "fs";
 import { parseJsonFile } from "./utils.js";
+import genDiff from "./genDiff.js";
 // import { extname, resolve } from "path";
 
 export default function cli() {
@@ -22,20 +23,15 @@ export default function cli() {
         
         const json1 = parseJsonFile(file1);
         const json2 = parseJsonFile(file2);
-        console.log(json1, json2);
+
+        const diff = genDiff(json1, json2);
+        console.log(diff);
       } catch (error) {
         console.error('Error while reading file');
         console.error(error.message);
         process.exit(1);
       }
-
     })
 
   program.parse();
-
-  // const [ filePath1, filePath2 ] = program.args;
-
-  // const options = program.opts();
-
-  // console.log(`Console: format - {${options.format}}  ${filePath1} ${filePath2});`);
 }
