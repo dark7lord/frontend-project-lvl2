@@ -22,7 +22,9 @@ const calculateDiff = (data1, data2) => {
 };
 
 const formatDiff = (diff, data1, data2) => {
-  const sortedKeys = Object.keys(diff).sort();
+  const keys = Object.keys(diff);
+  const sortedKeys = _.sortBy(keys);
+
   const rows = sortedKeys.map((key) => {
     if (diff[key] === 'added') {
       return `+ ${key}: ${data2[key]}`;
@@ -39,6 +41,7 @@ const formatDiff = (diff, data1, data2) => {
       return `${deletedRow}\n  ${addedRow}`;
     }
   });
+
   const formattedRows = rows.join('\n  ').trimEnd();
   const resultString = `{\n  ${formattedRows}\n}`;
 
