@@ -1,6 +1,11 @@
+NAME := @hexlet/code
+
 install:
 	npm ci
-	chmod +x bin/gendiff.js
+	npm link
+
+uninstall:
+	npm -g uninstall $(NAME)
 
 gendiff:
 	@bin/gendiff.js
