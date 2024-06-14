@@ -5,20 +5,18 @@ const calculateDiff = (data1, data2) => {
   const keys2 = Object.keys(data2);
   const keys = _.union(keys1, keys2);
 
-  const result = {};
-  keys.forEach((key) => {
+  return keys.reduce((acc, key) => {
     if (!Object.hasOwn(data1, key)) {
-      result[key] = 'added';
+      acc[key] = 'added';
     } else if (!Object.hasOwn(data2, key)) {
-      result[key] = 'deleted';
+      acc[key] = 'deleted';
     } else if (data1[key] !== data2[key]) {
-      result[key] = 'changed';
+      acc[key] = 'changed';
     } else {
-      result[key] = 'unchanged';
+      acc[key] = 'unchanged';
     }
-  });
-
-  return result;
+    return acc;
+  }, {});
 };
 
 const formatChangedRow = (key, data1, data2) => {
