@@ -4,6 +4,9 @@
   "description": "generate diff between files",
   "type": "module",
   "main": "./bin/gendiff.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "npx jest"
   },
