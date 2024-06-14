@@ -21,32 +21,37 @@ const calculateDiff = (data1, data2) => {
   return result;
 };
 
+const formatChangedRow = (key, data1, data2) => {
+  const deletedRow = `- ${key}: ${data1[key]}`;
+  const addedRow = `+ ${key}: ${data2[key]}`;
+  return `${deletedRow}\n  ${addedRow}`;
+};
+
+const formatRow = (key, diff, data1, data2) => {
+  switch (diff[key]) {
+    case 'added':
+      return `+ ${key}: ${data2[key]}`;
+    case 'deleted':
+      return `- ${key}: ${data1[key]}`;
+    case 'unchanged':
+      return `  ${key}: ${data1[key]}`;
+    case 'changed':
+      return formatChangedRow(key, data1, data2);
+    default:
+      throw new Error(`Unknown diff type: ${diff[key]}`);
+  }
+};
+
+const formatRows = (rows) => {
+  const formattedRows = rows.join('\n  ').trimEnd();
+  return `{\n  ${formattedRows}\n}`;
+};
+
 const formatDiff = (diff, data1, data2) => {
   const keys = Object.keys(diff);
   const sortedKeys = _.sortBy(keys);
-
-  const rows = sortedKeys.map((key) => {
-    if (diff[key] === 'added') {
-      return `+ ${key}: ${data2[key]}`;
-    }
-    if (diff[key] === 'deleted') {
-      return `- ${key}: ${data1[key]}`;
-    }
-    if (diff[key] === 'unchanged') {
-      return `  ${key}: ${data1[key]}`;
-    }
-    if (diff[key] === 'changed') {
-      const deletedRow = `- ${key}: ${data1[key]}`;
-      const addedRow = `+ ${key}: ${data2[key]}`;
-      return `${deletedRow}\n  ${addedRow}`;
-    }
-    throw new Error(`Unknown diff type: ${diff[key]}`);
-  });
-
-  const formattedRows = rows.join('\n  ').trimEnd();
-  const resultString = `{\n  ${formattedRows}\n}`;
-
-  return resultString;
+  const rows = sortedKeys.map((key) => formatRow(key, diff, data1, data2));
+  return formatRows(rows);
 };
 
 const genDiff = (data1, data2) => {
