@@ -1,11 +1,11 @@
-NAME := @hexlet/code
+PACKAGE_NAME := @hexlet/code
 
 install:
 	npm ci
 	npm link
 
 uninstall:
-	npm -g uninstall $(NAME)
+	npm -g uninstall $(PACKAGE_NAME)
 
 gendiff:
 	@bin/gendiff.js
