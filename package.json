@@ -8,7 +8,8 @@
     "node": ">=14"
   },
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:watch": "jest --watch"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
