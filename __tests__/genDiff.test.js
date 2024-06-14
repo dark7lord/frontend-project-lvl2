@@ -13,8 +13,8 @@ const expected = `{
 
 
 test('main flow gendiff', () => {
-  const path1 = './files/file1.json';
-  const path2 = './files/file2.json';
+  const path1 = './__fixtures__/file1.json';
+  const path2 = './__fixtures__/file2.json';
   const file1 = readFileSync(path1, 'utf8');
   const file2 = readFileSync(path2, 'utf8');
 
