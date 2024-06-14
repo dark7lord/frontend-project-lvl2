@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const calculateDiff = (data1, data2) => {
   const keys1 = Object.keys(data1);
@@ -6,7 +6,7 @@ const calculateDiff = (data1, data2) => {
   const keys = _.union(keys1, keys2);
 
   const result = {};
-  for (const key of keys) {
+  keys.forEach((key) => {
     if (!Object.hasOwn(data1, key)) {
       result[key] = 'added';
     } else if (!Object.hasOwn(data2, key)) {
@@ -16,7 +16,7 @@ const calculateDiff = (data1, data2) => {
     } else {
       result[key] = 'unchanged';
     }
-  }
+  });
 
   return result;
 };
@@ -40,6 +40,7 @@ const formatDiff = (diff, data1, data2) => {
       const addedRow = `+ ${key}: ${data2[key]}`;
       return `${deletedRow}\n  ${addedRow}`;
     }
+    throw new Error(`Unknown diff type: ${diff[key]}`);
   });
 
   const formattedRows = rows.join('\n  ').trimEnd();

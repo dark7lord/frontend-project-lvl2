@@ -1,6 +1,6 @@
+import { readFileSync } from 'fs';
 import { test, expect } from '@jest/globals';
 import genDiff from '../src/genDiff.js';
-import { readFileSync } from "fs";
 
 const expected = `{
   - follow: false
@@ -9,8 +9,7 @@ const expected = `{
   - timeout: 50
   + timeout: 20
   + verbose: true
-}`
-
+}`;
 
 test('main flow gendiff', () => {
   const path1 = './__fixtures__/file1.json';
